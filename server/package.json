@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/walkerwmanuel/Big-D-and-Lil-W#readme",
   "dependencies": {
+    "date-fns": "^2.29.3",
     "express": "^4.18.2",
     "yahoo-finance": "^0.3.7"
   }
