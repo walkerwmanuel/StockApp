@@ -1,0 +1,29 @@
+{
+  "name": "stonks",
+  "version": "0.0.1",
+  "description": "Simple Trading algorithm Platform",
+  "main": "index.js",
+  "scripts": {
+    "prod": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "jest index.test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walkerwmanuel/Big-D-and-Lil-W.git"
+  },
+  "keywords": [
+    "stonk",
+    "stock",
+    "gambling"
+  ],
+  "author": "Big D + Lil W",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/walkerwmanuel/Big-D-and-Lil-W/issues"
+  },
+  "homepage": "https://github.com/walkerwmanuel/Big-D-and-Lil-W#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
