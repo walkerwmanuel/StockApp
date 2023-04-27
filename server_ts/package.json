@@ -1,0 +1,25 @@
+{
+  "name": "sma_calculator",
+  "version": "1.0.0",
+  "description": "Calculates the SMA of a given stock symbol",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc index.ts",
+    "dev": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/walkerwmanuel/StockApp.git"
+  },
+  "author": "Dillon Carns + Walker Manuel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/walkerwmanuel/StockApp/issues"
+  },
+  "homepage": "https://github.com/walkerwmanuel/StockApp#readme",
+  "dependencies": {
+    "date-fns": "^2.29.3",
+    "yahoo-finance2": "^2.3.10"
+  }
+}
