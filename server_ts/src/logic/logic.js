@@ -36,36 +36,70 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findSmaOfDay = void 0;
+exports.goThroughDays = exports.findSmaOfDay = void 0;
 var yahoo_finance2_1 = require("yahoo-finance2");
 var date_fns_1 = require("date-fns");
 var dateFormat = "yyyy-MM-dd";
 var findSmaOfDay = function (day, ticker, n, onErr, onSuccess) { return __awaiter(void 0, void 0, void 0, function () {
-    var startingDate, targetDate, result, err_1;
+    var startingDate, targetDate, result, smaVal, closingPrice, i, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 startingDate = (0, date_fns_1.format)(new Date(day), dateFormat);
-                targetDate = (0, date_fns_1.format)((0, date_fns_1.sub)(new Date(startingDate), { days: n * 5 }), dateFormat);
+                targetDate = (0, date_fns_1.format)((0, date_fns_1.sub)(new Date(startingDate), { days: n * 3 }), dateFormat);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                console.log("STARTING DATE:", targetDate);
-                console.log("ENDING DATE:", startingDate);
                 return [4 /*yield*/, yahoo_finance2_1.default.historical(ticker, {
                         period1: targetDate,
                         period2: startingDate
                     })];
             case 2:
                 result = _a.sent();
-                console.log(result);
-                return [3 /*break*/, 4];
+                smaVal = 0;
+                closingPrice = 0;
+                for (i = 0; i < n; i++) {
+                    smaVal += result[i].close;
+                    if (i === n - 1) {
+                        closingPrice = result[i].close;
+                    }
+                }
+                smaVal /= n;
+                return [2 /*return*/, {
+                        value: smaVal,
+                        closingPrice: closingPrice
+                    }];
             case 3:
                 err_1 = _a.sent();
                 console.log(err_1);
-                return [3 /*break*/, 4];
+                return [2 /*return*/, {
+                        value: -1,
+                        closingPrice: -1
+                    }];
             case 4: return [2 /*return*/];
         }
     });
 }); };
 exports.findSmaOfDay = findSmaOfDay;
+var goThroughDays = function (startingDay, numDays, onEachDay) { return __awaiter(void 0, void 0, void 0, function () {
+    var startingDate, pastDate;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                startingDate = (0, date_fns_1.format)(new Date(startingDay), dateFormat);
+                pastDate = (0, date_fns_1.format)((0, date_fns_1.sub)(new Date(startingDate), { days: numDays }), dateFormat);
+                _a.label = 1;
+            case 1:
+                if (!(pastDate !== startingDate)) return [3 /*break*/, 4];
+                return [4 /*yield*/, onEachDay(pastDate)];
+            case 2:
+                _a.sent();
+                _a.label = 3;
+            case 3:
+                pastDate = (0, date_fns_1.format)((0, date_fns_1.add)(new Date(pastDate), { days: 2 }), dateFormat);
+                return [3 /*break*/, 1];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.goThroughDays = goThroughDays;
