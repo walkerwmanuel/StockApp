@@ -45,7 +45,7 @@ var logic_1 = require("./src/logic/logic");
 */
 function main() {
     return __awaiter(this, void 0, void 0, function () {
-        var startingMoney, bought, stock, today;
+        var startingMoney, bought, stock, netGain, today;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -53,6 +53,7 @@ function main() {
                     startingMoney = 10000;
                     bought = false;
                     stock = 'TSLA';
+                    netGain = 0;
                     today = new Date().toISOString();
                     // await findSmaOfDay(new Date().toISOString(), 'SPY', 20, (err: any) => {}, (r: any) => {})
                     // await findSmaOfDay(new Date().toISOString(), 'SPY', 50, (err: any) => {}, (r: any) => {})
@@ -71,15 +72,17 @@ function main() {
                                             if (sma20Value.value > sma50Value.value) {
                                                 bought = true;
                                                 console.log("BOUGHT AT:", sma20Value.closingPrice);
+                                                netGain -= sma20Value.closingPrice;
                                             }
                                         }
                                         else { // check if sma20 < sma50
-                                            if (sma20Value.value < sma50Value.value) {
+                                            if (sma20Value.value < sma20Value.closingPrice) {
                                                 bought = false;
                                                 console.log("SOLD AT:", sma20Value.closingPrice);
+                                                netGain += sma20Value.closingPrice;
                                             }
                                         }
-                                        console.log("Date:", currDay, "SMA-20 value", sma20Value.value, "SMA-50 value", sma50Value.value, "CLOSING PRICE", sma20Value.closingPrice);
+                                        console.log("Date:", currDay, "SMA-20 value", sma20Value.value, "SMA-50 value", sma50Value.value, "CLOSING PRICE", sma20Value.closingPrice, "NET GAIN", netGain);
                                         return [2 /*return*/];
                                 }
                             });
